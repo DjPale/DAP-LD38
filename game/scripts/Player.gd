@@ -28,6 +28,9 @@ var face_sign = 1
 var raycast_left
 var raycast_right
 
+onready var sprite = get_node("Sprite")
+onready var smoke = get_node("Smoke")
+
 func _ready():
 	raycast_left = get_node("RayLeft")
 	raycast_left.add_exception(self)
@@ -134,7 +137,10 @@ func _deadly_collision_check(obj):
 	pass
 	
 func _update_anim():
-	pass
+	sprite.set_flip_h(face_sign < 0)
+	smoke.set_param(Particles2D.PARAM_DIRECTION, (270 if face_sign > 0 else 90))
+	smoke.set_emitting(on_ground && velocity.x != 0)
+	
 	
 func hit(obj):
 	if invincible: return

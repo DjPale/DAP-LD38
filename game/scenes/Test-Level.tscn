@@ -85,7 +85,6 @@ invincible = false
 [node name="Sprite" type="Sprite" parent="Player"]
 
 texture = ExtResource( 4 )
-modulate = Color( 0.364868, 0.446272, 0.765625, 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -122,13 +121,15 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Particles2D" type="Particles2D" parent="Player"]
+[node name="Smoke" type="Particles2D" parent="Player"]
 
 config/amount = 5
-config/lifetime = 1.0
+config/lifetime = 0.5
+config/emitting = false
 config/process_mode = 1
 config/half_extents = Vector2( 1, 1 )
 config/local_space = false
+config/explosiveness = 0.1
 config/texture = ExtResource( 5 )
 config/h_frames = 3
 params/direction = 270.0
