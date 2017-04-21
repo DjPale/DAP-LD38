@@ -1,14 +1,20 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/GameControl.gd" type="Script" id=1]
 [ext_resource path="res://tiles/Test-Tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://scripts/Player.gd" type="Script" id=3]
-[ext_resource path="res://tiles/test-tile.png" type="Texture" id=4]
+[ext_resource path="res://gfx/player.png" type="Texture" id=4]
+[ext_resource path="res://gfx/varmup_tileset_run_smoke.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 5, 6 )
+
+[sub_resource type="ColorRamp" id=2]
+
+offsets = FloatArray( 0, 0.736842, 1 )
+colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0.75, 1, 1, 1, 0 )
 
 [node name="Test-Level" type="Node"]
 
@@ -115,5 +121,32 @@ type_mask = 15
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Particles2D" type="Particles2D" parent="Player"]
+
+config/amount = 5
+config/lifetime = 1.0
+config/process_mode = 1
+config/half_extents = Vector2( 1, 1 )
+config/local_space = false
+config/texture = ExtResource( 5 )
+config/h_frames = 3
+params/direction = 270.0
+params/spread = 10.0
+params/linear_velocity = 20.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 9.8
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+color/color_ramp = SubResource( 2 )
 
 
