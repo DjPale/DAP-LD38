@@ -32,7 +32,7 @@ func _do_timers(delta):
 	time_counter += (delta * mgr.time_scale)
 	
 	if time_counter >= get_absolute_max():
-		time_counter = 0
+		fail_flight()
 
 func _calc_pos():
 	var y_pos = mgr.start_pos.y + (list_pos * mgr.spacing)
@@ -48,11 +48,17 @@ func _calc_pos():
 func get_absolute_max():
 	return (initial_time + initial_time * mgr.allowed_overshoot)
 	
-func get_reward():
+func get_reward(dest):
+	# wrong airport
+	if dest != to:
+		return -reward
+	
+	# on time
 	if time_counter <= initial_time:
 		return reward
 	else:
-		return reward * ((initial_time - time_counter) / get_absolute_max())
+		# overtime
+		return reward * 0.5
 	
 func _setup_labels():
 	get_node("Timeline/Flight").set_text(flight)
@@ -62,3 +68,10 @@ func _setup_labels():
 
 func _on_TimelineSprite_clicked(pressed, offset):
 	mgr.timeline_click(self, pressed, offset)
+	
+func fail_flight():
+	mgr.failed_flight(self, -reward)
+	die()
+	
+func die():
+	queue_free()
