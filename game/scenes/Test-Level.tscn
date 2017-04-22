@@ -1,153 +1,136 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://scripts/GameControl.gd" type="Script" id=1]
-[ext_resource path="res://tiles/Test-Tiles.tres" type="TileSet" id=2]
-[ext_resource path="res://scripts/Player.gd" type="Script" id=3]
-[ext_resource path="res://gfx/player.png" type="Texture" id=4]
-[ext_resource path="res://gfx/varmup_tileset_run_smoke.png" type="Texture" id=5]
-
-[sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
-extents = Vector2( 5, 6 )
-
-[sub_resource type="ColorRamp" id=2]
-
-offsets = FloatArray( 0, 0.736842, 1 )
-colors = ColorArray( 1, 1, 1, 1, 1, 1, 1, 0.75, 1, 1, 1, 0 )
+[ext_resource path="res://gfx/map.png" type="Texture" id=2]
+[ext_resource path="res://gfx/ui-background.png" type="Texture" id=3]
+[ext_resource path="res://scripts/FlightManager.gd" type="Script" id=4]
+[ext_resource path="res://entities/Airport.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/Flight.tscn" type="PackedScene" id=6]
 
 [node name="Test-Level" type="Node"]
 
 script/script = ExtResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Map" type="TextureFrame" parent="."]
 
-transform/pos = Vector2( 96, 128 )
-anchor_mode = 1
-rotating = false
-current = true
-zoom = Vector2( 0.25, 0.25 )
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
-smoothing/enable = false
-smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
-
-[node name="TileMap" type="TileMap" parent="."]
-
-mode = 0
-tile_set = ExtResource( 2 )
-cell/size = Vector2( 16, 16 )
-cell/quadrant_size = 16
-cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-cell/half_offset = 2
-cell/tile_origin = 0
-cell/y_sort = false
-collision/use_kinematic = false
-collision/friction = 1.0
-collision/bounce = 0.0
-collision/layers = 1
-collision/mask = 1
-occluder/light_mask = 1
-tile_data = IntArray( 458754, 8, 458759, 8, 589823, 0, 524288, 0, 524290, 9, 524291, 0, 524295, 9, 589826, 10, 589827, 0, 589828, 0, 589831, 10, 655361, 1, 655362, 1, 655363, 1, 655364, 1, 655365, 1, 655366, 1, 655367, 1 )
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 512.0
+margin/bottom = 300.0
+texture = ExtResource( 2 )
+stretch_mode = 0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Player" type="KinematicBody2D" parent="."]
+[node name="GUI-Background" type="Sprite" parent="."]
 
-transform/pos = Vector2( 88, 120 )
-input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 2 )
-shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 3 )
-gravity = Vector2( 0, 200 )
-walk_speed = 100.0
-jump_max_height = 40.0
-jump_max_length = 20.0
-jump_time_to_height = 0.35
-jump_pause = 0.1
-jump_grace = 0.1
-input_enable = true
-invincible = false
-
-[node name="Sprite" type="Sprite" parent="Player"]
-
-texture = ExtResource( 4 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+[node name="FlightManager" type="Node" parent="."]
 
-transform/pos = Vector2( 0, 2 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
-__meta__ = {
-"_edit_lock_": true
-}
+script/script = ExtResource( 4 )
+time_scale = 1.0
+start_pos = Vector2( 700, 60 )
+end_pos = Vector2( 1004, 580 )
+max_time_scale = 2.0
+spacing = 80.0
+flight_speed = 20.0
+allowed_overshoot = 0.25
 
-[node name="RayLeft" type="RayCast2D" parent="Player"]
+[node name="FlightInfo" type="Label" parent="FlightManager"]
 
-transform/pos = Vector2( -5, 0 )
-enabled = true
-cast_to = Vector2( 0, 9 )
-layer_mask = 1
-type_mask = 15
-__meta__ = {
-"_edit_lock_": true
-}
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 32.0
+margin/top = 544.0
+margin/right = 424.0
+margin/bottom = 582.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
-[node name="RayRight" type="RayCast2D" parent="Player"]
+[node name="Airports" type="Node" parent="FlightManager"]
 
-transform/pos = Vector2( 5, 0 )
-enabled = true
-cast_to = Vector2( 0, 9 )
-layer_mask = 1
-type_mask = 15
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="TRD" parent="FlightManager/Airports" instance=ExtResource( 5 )]
 
-[node name="Smoke" type="Particles2D" parent="Player"]
+transform/pos = Vector2( 532, 140 )
 
-config/amount = 5
-config/lifetime = 0.5
-config/emitting = false
-config/process_mode = 1
-config/half_extents = Vector2( 1, 1 )
-config/local_space = false
-config/explosiveness = 0.1
-config/texture = ExtResource( 5 )
-config/h_frames = 3
-params/direction = 270.0
-params/spread = 10.0
-params/linear_velocity = 20.0
-params/spin_velocity = 0.0
-params/orbit_velocity = 0.0
-params/gravity_direction = 180.0
-params/gravity_strength = 9.8
-params/radial_accel = 0.0
-params/tangential_accel = 0.0
-params/damping = 0.0
-params/initial_angle = 0.0
-params/initial_size = 1.0
-params/final_size = 1.0
-params/hue_variation = 0.0
-params/anim_speed_scale = 1.0
-params/anim_initial_pos = 0.0
-color/color_ramp = SubResource( 2 )
+[node name="LAX" parent="FlightManager/Airports" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 140, 244 )
+
+[node name="MapSprite" parent="FlightManager/Airports/LAX"]
+
+modulate = Color( 0.785156, 0.645463, 0.447784, 1 )
+
+[node name="Label" parent="FlightManager/Airports/LAX"]
+
+text = "LAX"
+
+[node name="BGO" parent="FlightManager/Airports" instance=ExtResource( 5 )]
+
+editor/display_folded = true
+transform/pos = Vector2( 484, 148 )
+
+[node name="MapSprite" parent="FlightManager/Airports/BGO"]
+
+modulate = Color( 0.420609, 0.722656, 0.489041, 1 )
+
+[node name="Label" parent="FlightManager/Airports/BGO"]
+
+text = "BGO"
+
+[node name="Flights" type="Node" parent="FlightManager"]
+
+[node name="Flight" parent="FlightManager/Flights" instance=ExtResource( 6 )]
+
+editor/display_folded = true
+flight = "DY767"
+reward = 100
+
+[node name="Timeline" parent="FlightManager/Flights/Flight"]
+
+editor/display_folded = true
+
+[node name="TimelineSprite" parent="FlightManager/Flights/Flight/Timeline"]
+
+modulate = Color( 0.925781, 0.318237, 0.318237, 1 )
+
+[node name="Flight 2" parent="FlightManager/Flights" instance=ExtResource( 6 )]
+
+flight = "XY1234"
+from = "LAX"
+to = "BGO"
+reward = 60
+initial_time = 26.0
+list_pos = 1
+
+[node name="Flight 3" parent="FlightManager/Flights" instance=ExtResource( 6 )]
+
+flight = "WF1234"
+from = "BGO"
+to = "TRD"
+reward = 20
+initial_time = 4.0
+list_pos = 2
+
+[node name="UI" type="Node" parent="."]
 
 
+[editable path="FlightManager/Airports/LAX"]
+[editable path="FlightManager/Airports/BGO"]
+[editable path="FlightManager/Flights/Flight"]

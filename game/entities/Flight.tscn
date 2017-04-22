@@ -1,0 +1,103 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/Flight.gd" type="Script" id=1]
+[ext_resource path="res://gfx/flight-background.png" type="Texture" id=2]
+[ext_resource path="res://scripts/DragDetector.gd" type="Script" id=3]
+
+[node name="Flight" type="Node"]
+
+script/script = ExtResource( 1 )
+flight = null
+from = "TRD"
+to = "LAX"
+reward = 0
+initial_time = 13.0
+list_pos = 0
+
+[node name="Timeline" type="Node2D" parent="."]
+
+[node name="TimelineSprite" type="Sprite" parent="Timeline"]
+
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+script/script = ExtResource( 3 )
+
+[node name="Flight" type="Label" parent="Timeline"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -41.0
+margin/top = -27.0
+margin/right = 9.0
+margin/bottom = -13.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "XYnnnn"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Path" type="Label" parent="Timeline"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -25.0
+margin/top = -11.0
+margin/right = 25.0
+margin/bottom = 3.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "XXX-YYY"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Time" type="Label" parent="Timeline"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -49.0
+margin/top = 5.0
+margin/right = 1.0
+margin/bottom = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "hh:mm"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Reward" type="Label" parent="Timeline"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 7.0
+margin/top = 5.0
+margin/right = 57.0
+margin/bottom = 19.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "$nnnn"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Container" type="Container" parent="Timeline"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -64.0
+margin/top = -32.0
+margin/right = 64.0
+margin/bottom = 32.0
+
+[connection signal="clicked" from="Timeline/TimelineSprite" to="." method="_on_TimelineSprite_clicked"]
+
+

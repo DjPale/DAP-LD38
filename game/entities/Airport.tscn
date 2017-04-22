@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/Airport.gd" type="Script" id=1]
+[ext_resource path="res://tiles/test-tile.png" type="Texture" id=2]
+[ext_resource path="res://scripts/DragDetector.gd" type="Script" id=3]
+
+[node name="Airport" type="Node2D"]
+
+transform/pos = Vector2( 428, 108 )
+z/z = 1
+script/script = ExtResource( 1 )
+max_capacity = 1
+free_capacity = 1
+
+[node name="MapSprite" type="Sprite" parent="."]
+
+transform/scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+modulate = Color( 0.447784, 0.46887, 0.785156, 1 )
+script/script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -20.0
+margin/top = -16.0
+margin/right = 20.0
+margin/bottom = -2.0
+text = "XXX"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Capacity" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -20.0
+margin/top = 0.0
+margin/right = 20.0
+margin/bottom = 14.0
+text = "m/n"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="clicked" from="MapSprite" to="." method="_on_MapSprite_clicked"]
+
+
