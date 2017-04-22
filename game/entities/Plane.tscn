@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://scripts/Plane.gd" type="Script" id=1]
-[ext_resource path="res://tiles/test-tile.png" type="Texture" id=2]
+[ext_resource path="res://gfx/plane-white.png" type="Texture" id=2]
 
 [node name="Plane" type="Node2D"]
 
@@ -15,10 +15,9 @@ speed_modifier = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 
+transform/pos = Vector2( 0, 8 )
+transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Label" type="Label" parent="."]
 
@@ -30,6 +29,8 @@ margin/left = -40.0
 margin/top = -20.0
 margin/right = 60.0
 margin/bottom = -6.0
+custom_colors/font_color_shadow = Color( 0.207031, 0.207031, 0.207031, 1 )
+custom_constants/shadow_as_outline = 1
 text = "XYnnnnn -> ZZZ"
 percent_visible = 1.0
 lines_skipped = 0
