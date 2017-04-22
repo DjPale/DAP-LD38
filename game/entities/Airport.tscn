@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/Airport.gd" type="Script" id=1]
-[ext_resource path="res://tiles/test-tile.png" type="Texture" id=2]
+[ext_resource path="res://gfx/airfield.png" type="Texture" id=2]
 [ext_resource path="res://scripts/DragDetector.gd" type="Script" id=3]
+[ext_resource path="res://gfx/airport-sizes.png" type="Texture" id=4]
 
 [node name="Airport" type="Node2D"]
 
-transform/pos = Vector2( 428, 108 )
+transform/pos = Vector2( 428.158, 110.682 )
 z/z = 1
 script/script = ExtResource( 1 )
 max_capacity = 1
@@ -16,7 +17,6 @@ free_capacity = 1
 
 transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
-modulate = Color( 0.447784, 0.46887, 0.785156, 1 )
 script/script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
@@ -29,33 +29,36 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = -20.0
-margin/top = -16.0
+margin/top = -14.0
 margin/right = 20.0
-margin/bottom = -2.0
+margin/bottom = 0.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "XXX"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Capacity" type="Label" parent="."]
+[node name="Size1" type="Sprite" parent="."]
 
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -20.0
-margin/top = 0.0
-margin/right = 20.0
-margin/bottom = 14.0
-text = "m/n"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+transform/pos = Vector2( -10.1578, 5.31776 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+hframes = 2
+
+[node name="Size2" type="Sprite" parent="."]
+
+transform/pos = Vector2( -0.157776, 5.31776 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+hframes = 2
+
+[node name="Size3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 9.84222, 5.31776 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+hframes = 2
 
 [connection signal="clicked" from="MapSprite" to="." method="_on_MapSprite_clicked"]
 
