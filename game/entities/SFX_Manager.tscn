@@ -9,7 +9,8 @@ script/script = ExtResource( 1 )
 
 [node name="SamplePlayer" type="SamplePlayer" parent="."]
 
-config/polyphony = 1
+process/pause_mode = 1
+config/polyphony = 12
 config/samples = ExtResource( 2 )
 default/volume_db = 0.0
 default/pitch_scale = 1.0

@@ -30,6 +30,7 @@ onready var airports = get_node("Airports")
 onready var flights = get_node("Flights")
 onready var label = get_node("FlightInfo")
 onready var score_label = get_node("Score")
+onready var SFX_Manager = get_node("/root/SFX_Manager")
 
 onready var debug_label = get_node("DEBUG")
 
@@ -198,6 +199,7 @@ func timeline_click(flight, pressed, offset):
 func airport_click(airport, pressed, offset):
 	if pressed: return
 	prints("airport clicked", airport.get_name(), pressed, offset)
+	SFX_Manager.play("select")
 	check_connection(airport)
 	
 func failed_flight(flight, reward):
@@ -209,6 +211,7 @@ func failed_flight(flight, reward):
 	update_score()
 	
 	active_flights -= 1
+	SFX_Manager.play("plane-crashed")
 	flight.die()
 	
 func complete_flight(flight):
@@ -227,6 +230,7 @@ func complete_flight(flight):
 	prints("reward for", flight.flight, r)
 
 	money += r
+	SFX_Manager.play("complete_flight")
 	
 	update_score()
 	
