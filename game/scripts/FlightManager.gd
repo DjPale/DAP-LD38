@@ -2,6 +2,7 @@ extends Node
 
 const ThePlane = preload("res://entities/Plane.tscn")
 const TheFlight = preload("res://entities/Flight.tscn")
+const TheAirport = preload("res://entities/Airport.tscn")
 
 export var time_scale = 1.0
 export var start_pos = Vector2(20, 256)
@@ -12,8 +13,11 @@ export var flight_speed = 20.0
 export var allowed_overshoot = 50.0
 export var flight_spawn_interval = Vector2(5, 10)
 export var airport_spawn_to_flight_ratio = 10
+export var max_flights = 3
+export var money = 0
+export var distance_to_money = 0.5
+export var distance_to_time = 0.25
 
-var money = 0
 
 var sel_flight = null
 
@@ -23,21 +27,31 @@ var next_airport = 0.0
 var airline_codes = ["DY", "SK", "WF", "DA", "KL"] 
 
 onready var airports = get_node("Airports")
+onready var flights = get_node("Flights")
 onready var label = get_node("FlightInfo")
+onready var score_label = get_node("Score")
+
+onready var debug_label = get_node("DEBUG")
+
+var active_flights = 0
 
 func _ready():
+	add_airports()
 	set_next_spawn()
+	update_score()
 	set_process(true)
 
 func _process(delta):
 	_do_timers(delta)
 	_sync_info()
+	debug_label.set_text(str(active_flights))
 	
 func _do_timers(delta):
 	if next_spawn > 0:
 		next_spawn -= delta
 		if next_spawn <= 0:
 			do_spawn()
+			set_next_spawn()
 	
 func _sync_info():
 	var f = get_selected_flight()
@@ -50,14 +64,50 @@ func _sync_info():
 func set_next_spawn():
 	next_spawn = rand_range(flight_spawn_interval.x, flight_spawn_interval.y)
 	
+func find_slot():
+	var prev_idx = 0
+	
+	for i in range(0, 10):
+		var isfree = true
+		
+		for f in flights.get_children():
+			if f.list_pos == i:
+				isfree = false
+				
+		if isfree:
+			return i
+			
+	print("no free slots!")
+	return 0
+		
+	
 func do_spawn():
+	if active_flights >= max_flights:
+		return
+	
 	var flight = TheFlight.instance()
+	flight.mgr = self
 	flight.flight = get_rand_flight()
+	flight.set_name("Flight-" + flight.flight)
 	flight.from = get_rand_airport()
 	flight.to = get_rand_airport(flight.from)
+
 	
-	add_child(flight)
-	set_next_spawn()
+	var ap_from = get_airport(flight.from)
+	var ap_to = get_airport(flight.to)
+	
+	var dist = (ap_to.get_global_pos() - ap_from.get_global_pos()).length()
+	flight.initial_time = floor(dist * distance_to_time)
+	flight.reward = floor(dist * distance_to_money)
+	
+	active_flights += 1
+	flight.list_pos = find_slot()
+	
+	flights.add_child(flight)
+
+	
+func update_score():
+	score_label.set_text(str(money))
 	
 func get_rand_airport(exclude = null):
 	var cnt = 0
@@ -69,7 +119,6 @@ func get_rand_airport(exclude = null):
 		return "n/a"
 	
 	var r = int(rand_range(0, cnt))
-	prints(r, "of", cnt)
 	
 	cnt = -1
 	for c in airports.get_children():
@@ -112,8 +161,10 @@ func get_plane(flight):
 func get_airport(name):
 	var ap = airports.find_node(name, true, false)
 	
-	if ap != null and not ap.is_hidden:
-		return
+	if ap != null and not ap.is_hidden():
+		return ap
+		
+	return null
 	
 func check_connection(airport):
 	var flight = get_selected_flight()
@@ -154,6 +205,10 @@ func failed_flight(flight, reward):
 	prints("reward for timeout ", flight.flight, r)
 	
 	money += r
+	
+	update_score()
+	
+	active_flights -= 1
 	flight.die()
 	
 func complete_flight(flight):
@@ -173,5 +228,46 @@ func complete_flight(flight):
 
 	money += r
 	
+	update_score()
+	
+	active_flights -= 1
 	flight.die()
 	
+func add_airport(name, iata_code, capacity, x_coord, y_coord):
+	var ap = TheAirport.instance()
+	
+	ap.set_pos(Vector2(x_coord, y_coord) * 2.0)
+	ap.set_name(iata_code)
+	ap.max_capacity = capacity
+	
+	airports.add_child(ap)
+	
+
+func add_airports():
+	add_airport("Beijin Capital International Airport", "PEK", 3, 399, 103)
+	add_airport("Dubai International Airport", "DXB", 3, 309, 129)
+	add_airport("Los Angeles International Airport", "LAX", 3, 69, 111)
+	add_airport("Tokyo International Airport", "HND", 3, 429, 110)
+	add_airport("Heathrow Airport", "LHR", 3, 234, 78)
+	add_airport("Charles de Gaulle Airport", "CDG", 3, 240, 84)
+	add_airport("Amsterdam Airport Schiphol", "AMS", 3, 241, 78)
+	add_airport("Frankfurt Airport", "FRA", 3, 244, 83)
+	add_airport("Istanbul Atatürk Airport", "IST", 3, 272, 99)
+	add_airport("Singapore Changi Airport", "SIN", 3, 377, 169)
+	add_airport("Seoul Incheon International Airport", "ICN", 3, 410, 106)
+	add_airport("Suvarnabhumi Airport", "BKK", 3, 374, 147)
+	add_airport("Indira Gandhi International Airport", "DEL", 3, 343, 133)
+	add_airport("Madrid Barajas Airport", "MAD", 3, 228, 100)
+	add_airport("Toronto Pearson International Airport", "YYZ", 3, 122, 98)
+	add_airport("Sydney Kingsford-Smith Airport", "SYD", 3, 443, 226)
+	add_airport("Leonardo da Vinci–Fiumicino Airport", "FCO", 3, 254, 99)
+	add_airport("Benito Juárez International Airport", "MEX", 3, 95, 137)
+	add_airport("John F. Kennedy International Airport", "JFK", 3, 127, 100)
+	add_airport("Campo de Marte Airport", "MAE", 1, 169, 209)
+	add_airport("Sheremetyevo International Airport", "SVO", 2, 289, 69)
+	add_airport("Avalon Airport", "AVV", 2, 426, 227)
+	add_airport("El Dorado International Airport", "BOG", 2, 132, 163)
+	add_airport("Oslo Airport, Gardermoen", "OSL", 1, 248, 62)
+	add_airport("Stockholm Arlanda Airport", "ARN", 2, 257, 59)
+	add_airport("Copenhagen Airport", "CPH", 1, 249, 70)
+	add_airport("O. R. Tambo International Airport", "JNB", 2, 272, 221)

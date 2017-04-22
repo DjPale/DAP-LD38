@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/GameControl.gd" type="Script" id=1]
 [ext_resource path="res://gfx/map.png" type="Texture" id=2]
 [ext_resource path="res://gfx/ui-background.png" type="Texture" id=3]
-[ext_resource path="res://scripts/FlightManager.gd" type="Script" id=4]
-[ext_resource path="res://entities/Airport.tscn" type="PackedScene" id=5]
-[ext_resource path="res://entities/Flight.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gfx/timer-green.png" type="Texture" id=4]
+[ext_resource path="res://gfx/timer-yellow.png" type="Texture" id=5]
+[ext_resource path="res://gfx/timer-red.png" type="Texture" id=6]
+[ext_resource path="res://scripts/FlightManager.gd" type="Script" id=7]
 
 [node name="Test-Level" type="Node"]
 
@@ -24,9 +25,6 @@ margin/right = 512.0
 margin/bottom = 300.0
 texture = ExtResource( 2 )
 stretch_mode = 0
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="GUI-Background" type="Sprite" parent="."]
 
@@ -37,18 +35,62 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="TimerGreen" type="Sprite" parent="GUI-Background"]
+
+transform/pos = Vector2( 328, 14 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TimerYellow" type="Sprite" parent="GUI-Background"]
+
+transform/pos = Vector2( 449.5, 14 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TimerRed" type="Sprite" parent="GUI-Background"]
+
+transform/pos = Vector2( 498, 14 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="FlightManager" type="Node" parent="."]
 
-script/script = ExtResource( 4 )
+script/script = ExtResource( 7 )
 time_scale = 1.0
-start_pos = Vector2( 700, 60 )
+start_pos = Vector2( 700, 80 )
 end_pos = Vector2( 1004, 580 )
 max_time_scale = 2.0
 spacing = 80.0
-flight_speed = 20.0
+flight_speed = 10.0
 allowed_overshoot = 0.25
 flight_spawn_interval = Vector2( 1, 3 )
 airport_spawn_to_flight_ratio = 20
+max_flights = 4
+money = 300
+distance_to_money = 0.5
+distance_to_time = 0.2
+
+[node name="DEBUG" type="Label" parent="FlightManager"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 34.0
+margin/top = 561.0
+margin/right = 80.0
+margin/bottom = 575.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DEBUG"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="FlightInfo" type="Label" parent="FlightManager"]
 
@@ -64,75 +106,26 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="Score" type="Label" parent="FlightManager"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 271.0
+margin/top = 10.0
+margin/right = 311.0
+margin/bottom = 24.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "nnnn"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Airports" type="Node" parent="FlightManager"]
 
-[node name="TRD" parent="FlightManager/Airports" instance=ExtResource( 5 )]
-
-transform/pos = Vector2( 532, 140 )
-
-[node name="LAX" parent="FlightManager/Airports" instance=ExtResource( 5 )]
-
-editor/display_folded = true
-transform/pos = Vector2( 140, 244 )
-
-[node name="MapSprite" parent="FlightManager/Airports/LAX"]
-
-modulate = Color( 0.785156, 0.645463, 0.447784, 1 )
-
-[node name="Label" parent="FlightManager/Airports/LAX"]
-
-text = "LAX"
-
-[node name="BGO" parent="FlightManager/Airports" instance=ExtResource( 5 )]
-
-editor/display_folded = true
-transform/pos = Vector2( 484, 148 )
-
-[node name="MapSprite" parent="FlightManager/Airports/BGO"]
-
-modulate = Color( 0.420609, 0.722656, 0.489041, 1 )
-
-[node name="Label" parent="FlightManager/Airports/BGO"]
-
-text = "BGO"
-
 [node name="Flights" type="Node" parent="FlightManager"]
-
-[node name="Flight" parent="FlightManager/Flights" instance=ExtResource( 6 )]
-
-editor/display_folded = true
-flight = "DY767"
-reward = 100
-
-[node name="Timeline" parent="FlightManager/Flights/Flight"]
-
-editor/display_folded = true
-
-[node name="TimelineSprite" parent="FlightManager/Flights/Flight/Timeline"]
-
-modulate = Color( 0.925781, 0.318237, 0.318237, 1 )
-
-[node name="Flight 2" parent="FlightManager/Flights" instance=ExtResource( 6 )]
-
-flight = "XY1234"
-from = "LAX"
-to = "BGO"
-reward = 60
-initial_time = 26.0
-list_pos = 1
-
-[node name="Flight 3" parent="FlightManager/Flights" instance=ExtResource( 6 )]
-
-flight = "WF1234"
-from = "BGO"
-to = "TRD"
-reward = 20
-initial_time = 4.0
-list_pos = 2
 
 [node name="UI" type="Node" parent="."]
 
 
-[editable path="FlightManager/Airports/LAX"]
-[editable path="FlightManager/Airports/BGO"]
-[editable path="FlightManager/Flights/Flight"]

@@ -16,6 +16,8 @@ list_pos = 0
 
 [node name="Timeline" type="Node2D" parent="."]
 
+visibility/visible = false
+
 [node name="TimelineSprite" type="Sprite" parent="Timeline"]
 
 transform/scale = Vector2( 2, 2 )

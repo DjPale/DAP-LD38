@@ -9,7 +9,7 @@ export(int) var list_pos = 0
 
 var time_counter = 0.0
 
-onready var mgr = get_tree().get_root().find_node("FlightManager", true, false)
+var mgr = null #get_tree().get_root().find_node("FlightManager", true, false)
 
 onready var timeline = get_node("Timeline")
 onready var sprite = get_node("Timeline/TimelineSprite")
@@ -21,7 +21,9 @@ func set_color(color):
 	sprite.set_modulate(color)
 
 func _ready():
+	timeline.set_hidden(false)
 	_setup_labels()
+	_calc_pos()
 	set_process(true)
 	
 func _process(delta):
