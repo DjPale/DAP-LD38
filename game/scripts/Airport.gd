@@ -3,10 +3,13 @@ extends Node2D
 export(int) var max_capacity = 1
 export(int) var free_capacity = 0
 
+var landing_radius = 0.0
+
 onready var mgr = get_tree().get_root().find_node("FlightManager", true, false)
 onready var size1 = get_node("Size1")
 onready var size2 = get_node("Size2")
 onready var size3 = get_node("Size3")
+onready var sprite = get_node("MapSprite")
 
 func _ready():
 	free_capacity = max_capacity
@@ -24,6 +27,13 @@ func _ready():
 func _process(delta):
 	pass
 	
+func _draw():
+    if landing_radius > 0.0:
+        draw_circle(sprite.get_pos(), landing_radius, Color(1, 1, 1, 0.5))
+
+func set_landing_radius(radius):
+    landing_radius = radius
+
 func get_capacity():
 	return free_capacity
 	
