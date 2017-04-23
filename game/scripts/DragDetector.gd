@@ -1,6 +1,6 @@
 extends Sprite
 
-signal clicked(pressed, offset)
+signal clicked(pressed, global_pos, offset)
 
 var s_size = Vector2()
 
@@ -16,4 +16,4 @@ func _input(ev):
 
 		var rect = Rect2(s_pos.x - a_size.x / 2, s_pos.y - a_size.y / 2, a_size.x, a_size.y)
 		if rect.has_point(ev_pos):
-			emit_signal("clicked", ev.is_pressed(), s_pos - ev_pos)
+			emit_signal("clicked", ev.is_pressed(), ev_pos, s_pos - ev_pos)

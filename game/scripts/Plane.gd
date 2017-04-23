@@ -25,7 +25,9 @@ func _draw():
 	
 	var v = dest.get_global_pos() - get_global_pos()
 	
-	draw_line(Vector2(), v.normalized() * (v.length() + len_offset), color, line_width)
+	var tgt = v.normalized() * (v.length() + len_offset)
+	draw_line(Vector2(), tgt, Color(0, 0, 0), line_width * 1.5)
+	draw_line(Vector2(), tgt, color, line_width)
 
 func set_color(the_color):
 	color = the_color
@@ -65,7 +67,7 @@ func set_destination(flight, airport):
 	cur_flight = weakref(flight)
 		
 func completed_flight():
-	mgr.complete_flight(get_flight())
+	mgr.complete_flight(get_destination(), get_flight())
 	die()
 	
 func lost_flight():

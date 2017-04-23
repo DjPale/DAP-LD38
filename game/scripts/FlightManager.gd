@@ -26,8 +26,9 @@ var next_airport = 0.0
 
 var airline_codes = ["DY", "SK", "WF", "DA", "KL"] 
 
-onready var airports = get_node("Airports")
-onready var flights = get_node("Flights")
+onready var airports = get_tree().get_root().find_node("Airports", true, false)
+onready var flights = get_tree().get_root().find_node("Flights", true, false)
+onready var planes = get_tree().get_root().find_node("Planes", true, false)
 onready var label = get_node("FlightInfo")
 onready var score_label = get_node("Score")
 onready var SFX_Manager = get_node("/root/SFX_Manager")
@@ -92,7 +93,6 @@ func do_spawn():
 	flight.set_name("Flight-" + flight.flight)
 	flight.from = get_rand_airport()
 	flight.to = get_rand_airport(flight.from)
-
 	
 	var ap_from = get_airport(flight.from)
 	var ap_to = get_airport(flight.to)
@@ -105,7 +105,6 @@ func do_spawn():
 	flight.list_pos = find_slot()
 	
 	flights.add_child(flight)
-
 	
 func update_score():
 	score_label.set_text(str(money))
@@ -143,19 +142,22 @@ func get_selected_flight():
 	return null
 	
 func get_plane(flight):
+	prints("get_plane", flight.flight)
 	var plane = get_tree().get_root().find_node("Plane-" + flight.flight, true, false)
 	
 	if plane == null:
 		plane = ThePlane.instance()
 		plane.set_name("Plane-" + flight.flight)
+		planes.add_child(plane)
 		
 		var ap = get_airport(flight.from)
 		if ap != null:
+			prints("ap", ap.get_name(), ap.get_global_pos())
 			plane.set_global_pos(ap.get_global_pos())
 		else:
 			print("Could not find from Airport ", flight.from)
 		
-		add_child(plane)
+
 		
 	return plane
 	
@@ -214,17 +216,17 @@ func failed_flight(flight, reward):
 	SFX_Manager.play("plane-crashed")
 	flight.die()
 	
-func complete_flight(flight):
+func complete_flight(dest_airport, flight):
 	if flight == null:
 		print("complete_flight with null!")
 		return
 	
-	var ap = get_airport(flight.to)
+	var ap = dest_airport
 	
 	if ap != null:
 		ap.free_slot()
 	else:
-		print("could not find airport ", flight.to)
+		print("complete_flight with no ap ", flight.to)
 
 	var r = flight.get_reward(ap.get_name())
 	prints("reward for", flight.flight, r)
@@ -240,7 +242,7 @@ func complete_flight(flight):
 func add_airport(name, iata_code, capacity, x_coord, y_coord):
 	var ap = TheAirport.instance()
 	
-	ap.set_pos(Vector2(x_coord, y_coord) * 2.0)
+	ap.set_pos(Vector2(x_coord, y_coord) * 5.0)
 	ap.set_name(iata_code)
 	ap.max_capacity = capacity
 	
@@ -252,26 +254,26 @@ func add_airports():
 	add_airport("Dubai International Airport", "DXB", 3, 309, 129)
 	add_airport("Los Angeles International Airport", "LAX", 3, 69, 111)
 	add_airport("Tokyo International Airport", "HND", 3, 429, 110)
-	add_airport("Heathrow Airport", "LHR", 3, 234, 78)
-	add_airport("Charles de Gaulle Airport", "CDG", 3, 240, 84)
-	add_airport("Amsterdam Airport Schiphol", "AMS", 3, 241, 78)
-	add_airport("Frankfurt Airport", "FRA", 3, 244, 83)
+	add_airport("Heathrow Airport", "LHR", 3, 232, 78)
+	add_airport("Charles de Gaulle Airport", "CDG", 3, 238, 85)
+	add_airport("Amsterdam Airport Schiphol", "AMS", 3, 241, 77)
+	add_airport("Frankfurt Airport", "FRA", 3, 247, 85)
 	add_airport("Istanbul Atatürk Airport", "IST", 3, 272, 99)
 	add_airport("Singapore Changi Airport", "SIN", 3, 377, 169)
 	add_airport("Seoul Incheon International Airport", "ICN", 3, 410, 106)
 	add_airport("Suvarnabhumi Airport", "BKK", 3, 374, 147)
 	add_airport("Indira Gandhi International Airport", "DEL", 3, 343, 133)
 	add_airport("Madrid Barajas Airport", "MAD", 3, 228, 100)
-	add_airport("Toronto Pearson International Airport", "YYZ", 3, 122, 98)
+	add_airport("Toronto Pearson International Airport", "YYZ", 3, 120, 96)
 	add_airport("Sydney Kingsford-Smith Airport", "SYD", 3, 443, 226)
 	add_airport("Leonardo da Vinci–Fiumicino Airport", "FCO", 3, 254, 99)
 	add_airport("Benito Juárez International Airport", "MEX", 3, 95, 137)
-	add_airport("John F. Kennedy International Airport", "JFK", 3, 127, 100)
+	add_airport("John F. Kennedy International Airport", "JFK", 3, 128, 100)
 	add_airport("Campo de Marte Airport", "MAE", 1, 169, 209)
 	add_airport("Sheremetyevo International Airport", "SVO", 2, 289, 69)
 	add_airport("Avalon Airport", "AVV", 2, 426, 227)
 	add_airport("El Dorado International Airport", "BOG", 2, 132, 163)
-	add_airport("Oslo Airport, Gardermoen", "OSL", 1, 248, 62)
+	add_airport("Oslo Airport, Gardermoen", "OSL", 1, 246, 62)
 	add_airport("Stockholm Arlanda Airport", "ARN", 2, 257, 59)
 	add_airport("Copenhagen Airport", "CPH", 1, 249, 70)
 	add_airport("O. R. Tambo International Airport", "JNB", 2, 272, 221)

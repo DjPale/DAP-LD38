@@ -1,35 +1,66 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scripts/GameControl.gd" type="Script" id=1]
-[ext_resource path="res://gfx/map.png" type="Texture" id=2]
-[ext_resource path="res://gfx/ui-background.png" type="Texture" id=3]
-[ext_resource path="res://gfx/timer-green.png" type="Texture" id=4]
-[ext_resource path="res://gfx/timer-yellow.png" type="Texture" id=5]
-[ext_resource path="res://gfx/timer-red.png" type="Texture" id=6]
-[ext_resource path="res://scripts/FlightManager.gd" type="Script" id=7]
+[ext_resource path="res://scripts/MapPanner.gd" type="Script" id=2]
+[ext_resource path="res://gfx/map.png" type="Texture" id=3]
+[ext_resource path="res://gfx/ui-background.png" type="Texture" id=4]
+[ext_resource path="res://gfx/timer-green.png" type="Texture" id=5]
+[ext_resource path="res://gfx/timer-yellow.png" type="Texture" id=6]
+[ext_resource path="res://gfx/timer-red.png" type="Texture" id=7]
+[ext_resource path="res://scripts/FlightManager.gd" type="Script" id=8]
 
 [node name="Test-Level" type="Node"]
 
 script/script = ExtResource( 1 )
 
-[node name="Map" type="TextureFrame" parent="."]
+[node name="Map" type="Node2D" parent="."]
 
-rect/scale = Vector2( 2, 2 )
+z/relative = false
+script/script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+rect = Rect2( 16, 16, 610, 568 )
+upper = Vector2( -1840, -750 )
+lower = Vector2( -150, 50 )
+pan_scale_factor = 1.25
+
+[node name="MapFrame" type="TextureFrame" parent="Map"]
+
+rect/scale = Vector2( 5, 5 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 512.0
-margin/bottom = 300.0
-texture = ExtResource( 2 )
+margin/right = 500.0
+margin/bottom = 270.0
+texture = ExtResource( 3 )
 stretch_mode = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Airports" type="Node2D" parent="Map"]
+
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Planes" type="Node2D" parent="Map"]
+
+z/z = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="GUI-Background" type="Sprite" parent="."]
 
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+z/z = 10
+z/relative = false
+texture = ExtResource( 4 )
 centered = false
 __meta__ = {
 "_edit_lock_": true
@@ -38,7 +69,7 @@ __meta__ = {
 [node name="TimerGreen" type="Sprite" parent="GUI-Background"]
 
 transform/pos = Vector2( 328, 14 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -46,7 +77,7 @@ __meta__ = {
 [node name="TimerYellow" type="Sprite" parent="GUI-Background"]
 
 transform/pos = Vector2( 449.5, 14 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -54,27 +85,31 @@ __meta__ = {
 [node name="TimerRed" type="Sprite" parent="GUI-Background"]
 
 transform/pos = Vector2( 498, 14 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="FlightManager" type="Node" parent="."]
+[node name="FlightManager" type="Node2D" parent="."]
 
-script/script = ExtResource( 7 )
+z/z = 20
+z/relative = false
+script/script = ExtResource( 8 )
 time_scale = 1.0
 start_pos = Vector2( 700, 80 )
 end_pos = Vector2( 1004, 580 )
 max_time_scale = 2.0
 spacing = 80.0
-flight_speed = 10.0
+flight_speed = 40.0
 allowed_overshoot = 0.25
 flight_spawn_interval = Vector2( 1, 3 )
 airport_spawn_to_flight_ratio = 20
 max_flights = 4
 money = 300
 distance_to_money = 0.5
-distance_to_time = 0.2
+distance_to_time = 0.05
+
+[node name="Flights" type="Node2D" parent="FlightManager"]
 
 [node name="DEBUG" type="Label" parent="FlightManager"]
 
@@ -121,10 +156,6 @@ text = "nnnn"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="Airports" type="Node" parent="FlightManager"]
-
-[node name="Flights" type="Node" parent="FlightManager"]
 
 [node name="UI" type="Node" parent="."]
 

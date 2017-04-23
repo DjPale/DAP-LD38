@@ -68,7 +68,7 @@ func _setup_labels():
 	get_node("Timeline/Time").set_text(str(initial_time - time_counter))
 	get_node("Timeline/Reward").set_text("$" + str(reward))
 
-func _on_TimelineSprite_clicked(pressed, offset):
+func _on_TimelineSprite_clicked(pressed, global_pos, offset):
 	mgr.timeline_click(self, pressed, offset)
 	
 func fail_flight():

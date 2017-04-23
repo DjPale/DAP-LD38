@@ -56,5 +56,6 @@ func update_capacity():
 	if occupied > 2:
 		size3.set_frame(1)
 
-func _on_MapSprite_clicked( pressed, offset ):
+func _on_MapSprite_clicked( pressed, global_pos, offset ):
+	if global_pos.x > 620: return
 	mgr.airport_click(self, pressed, offset)
