@@ -46,6 +46,9 @@ func _update_pos(delta):
 	var dir = dest.get_global_pos() - gpos
 	
 	if final:
+		if dir.length() < slot_radius / 1.5:
+			set_opacity(dir.length() / (slot_radius / 1.5) - 0.1)
+			
 		if not is_landing and dir.length() < slot_radius:
 			if not dest.get_slot():
 				get_flight().fail_flight()
