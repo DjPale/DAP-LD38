@@ -12,6 +12,7 @@ z/z = 1
 script/script = ExtResource( 1 )
 max_capacity = 1
 free_capacity = 1
+landing_radius = 50.0
 
 [node name="MapSprite" type="Sprite" parent="."]
 
