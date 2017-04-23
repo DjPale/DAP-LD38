@@ -256,17 +256,13 @@ func check_connection(airport):
 	if airport.get_name() == flight.from:
 		return
 	
-	if airport.get_slot():
-		var plane = get_plane(flight)
+	var plane = get_plane(flight)
+	
+	if plane == null:
+		print("Could not find plane or from airport")
+		return
 		
-		if plane == null:
-			print("Could not find plane or from airport")
-			return
-			
-		if plane.has_destination():
-			plane.dest.free_slot()
-			
-		plane.set_destination(flight, airport)
+	plane.set_destination(flight, airport)
 		
 func timeline_click(flight, pressed, offset):
 	if pressed: return

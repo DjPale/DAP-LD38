@@ -9,6 +9,8 @@ export(float) var speed_modifier = 1.0
 var dest = null
 var cur_flight = null
 
+var is_landing = false
+
 onready var mgr = get_tree().get_root().find_node("FlightManager", true, false)
 onready var sprite = get_node("Sprite")
 
@@ -44,6 +46,13 @@ func _update_pos(delta):
 	var gpos = get_global_pos()
 	
 	var dir = dest.get_global_pos() - gpos
+	
+	if not is_landing and dir.length() < 50.0:
+		if not dest.get_slot():
+			get_flight().fail_flight()
+			 
+		is_landing = true
+	
 	if dir.length() < 10.0:
 		completed_flight()
 		dest = null
@@ -71,8 +80,8 @@ func completed_flight():
 	die()
 	
 func lost_flight():
-	if dest != null:
-		dest.free_slot()
+	#if dest != null:
+	#	dest.free_slot()
 		
 	dest = null
 	die()
