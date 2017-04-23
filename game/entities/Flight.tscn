@@ -20,6 +20,7 @@ list_pos = 0
 
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
+hframes = 2
 script/script = ExtResource( 3 )
 
 [node name="Flight" type="Label" parent="Timeline"]

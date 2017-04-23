@@ -14,6 +14,9 @@ var mgr = null #get_tree().get_root().find_node("FlightManager", true, false)
 onready var timeline = get_node("Timeline")
 onready var sprite = get_node("Timeline/TimelineSprite")
 
+func set_frame(number):
+	sprite.set_frame(number)
+
 func get_color():
 	return sprite.get_modulate()
 	

@@ -217,11 +217,18 @@ func timeline_click(flight, pressed, offset):
 	if pressed: return
 	prints("flight clicked", flight.flight, pressed, offset)
 	
-	var r = float(randi() % 75 + 25) / 100
-	var g = float(randi() % 75 + 25) / 100
-	var b = float(randi() % 75 + 25) / 100
-	var color = Color(r, g, b, 1)
-	flight.set_color(color)
+	var dirty = flight.get_color() != Color(1,1,1)
+	if (!dirty):
+		var r = float(randi() % 75 + 25) / 100
+		var g = float(randi() % 75 + 25) / 100
+		var b = float(randi() % 75 + 25) / 100
+		var color = Color(r, g, b, 0.75)
+		flight.set_color(color)
+
+	for i in flights.get_children():
+		i.set_frame(0)
+	
+	flight.set_frame(1)
 	
 	sel_flight = weakref(flight)
 	
