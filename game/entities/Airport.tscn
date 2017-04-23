@@ -41,6 +41,7 @@ max_lines_visible = -1
 
 [node name="Size1" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( -10.1578, 5.31776 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
@@ -48,6 +49,7 @@ hframes = 2
 
 [node name="Size2" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( -0.157776, 5.31776 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
@@ -55,6 +57,7 @@ hframes = 2
 
 [node name="Size3" type="Sprite" parent="."]
 
+visibility/visible = false
 transform/pos = Vector2( 9.84222, 5.31776 )
 transform/scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
