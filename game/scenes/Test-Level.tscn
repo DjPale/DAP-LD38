@@ -57,11 +57,8 @@ __meta__ = {
 
 [node name="Weather" type="Node2D" parent="Map"]
 
-z/z = 1
-
 [node name="GUI-Background" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/scale = Vector2( 2, 2 )
 z/z = 10
 z/relative = false
@@ -97,7 +94,6 @@ __meta__ = {
 
 [node name="FlightManager" type="Node2D" parent="."]
 
-editor/display_folded = true
 z/z = 20
 z/relative = false
 script/script = ExtResource( 8 )
@@ -250,5 +246,4 @@ random_scale = Vector2( 0.75, 2 )
 random_speed = Vector2( 8, 16 )
 random_dist_from_ap = Vector2( 200, 400 )
 next_spawn = 60.0
-
 
