@@ -247,3 +247,4 @@ random_speed = Vector2( 8, 16 )
 random_dist_from_ap = Vector2( 200, 400 )
 next_spawn = 60.0
 
+

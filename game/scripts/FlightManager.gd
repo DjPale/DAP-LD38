@@ -197,6 +197,7 @@ func open_airport():
 
 func add_flight_slot():
 	if max_flights < max_flight_slots:
+		VFX_Manager.floating_text("You have been granted a new flight slot!")
 		prints("New flight slot")
 		max_flights += 1
 	
