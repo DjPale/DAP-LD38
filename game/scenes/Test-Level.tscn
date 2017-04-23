@@ -13,6 +13,7 @@
 [node name="Test-Level" type="Node"]
 
 script/script = ExtResource( 1 )
+enable_debug = true
 
 [node name="Map" type="Node2D" parent="."]
 
@@ -243,11 +244,11 @@ script/script = ExtResource( 9 )
 __meta__ = {
 "_edit_lock_": true
 }
-random_spawntime = Vector2( 60, 120 )
-random_lifetime = Vector2( 60, 100 )
+random_spawntime = Vector2( 40, 100 )
+random_lifetime = Vector2( 60, 120 )
 random_scale = Vector2( 0.75, 2 )
-random_speed = Vector2( 4, 10 )
-random_dist_from_ap = Vector2( 300, 600 )
+random_speed = Vector2( 8, 16 )
+random_dist_from_ap = Vector2( 200, 400 )
 next_spawn = 60.0
 
 
