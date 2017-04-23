@@ -1,14 +1,15 @@
-EB when flight is landing, disable, fade and add icon describing the shit
-C2 UI Trekanter som viser at man kan pan'e world map
-C2 Create menu assets
-C2 Revise colors on UI
-EB Floating Text VFX (money + new airport)
-EB Game Over
-EB Add Menu
-EB Add music
-EB Double-click to center on plane location
-C2 Record funny pilot voice, ambient audio shit
-C2 Negative sound on negative reward on complete flight
-C2 New airport sfx and visual
-C2 New flights sfx and visual
-C2 Tutorial Bitmap to be shown before playing
+# TODOs in order of importance-ish
+- EB | when flight is landing, disable, fade and add icon describing the shit
+- C2 | UI Trekanter som viser at man kan pan'e world map
+- C2 | Create menu assets
+- C2 | Revise colors on UI
+- EB | Floating Text VFX (money + new airport)
+- EB | Game Over
+- EB | Add Menu
+- EB | Add music
+- EB | Double-click to center on plane location
+- C2 | Record funny pilot voice, ambient audio shit
+- C2 | Negative sound on negative reward on complete flight
+- C2 | New airport sfx and visual
+- C2 | New flights sfx and visual
+- C2 | Tutorial Bitmap to be shown before playing
