@@ -268,14 +268,6 @@ func timeline_click(flight, pressed, offset):
 	if pressed: return
 	prints("flight clicked", flight.flight, pressed, offset)
 	
-	var dirty = flight.get_color() != Color(1,1,1)
-	if (!dirty):
-		var r = float(randi() % 75 + 25) / 100
-		var g = float(randi() % 75 + 25) / 100
-		var b = float(randi() % 75 + 25) / 100
-		var color = Color(r, g, b, 0.75)
-		flight.set_color(color)
-
 	for i in flights.get_children():
 		i.set_frame(0)
 	
@@ -287,6 +279,17 @@ func airport_click(airport, pressed, offset):
 	if pressed or airport.is_hidden(): return
 	prints("airport clicked", airport.get_name(), pressed, offset, sel_flight)
 	SFX_Manager.play("select")
+
+	var flight = get_selected_flight()
+	if (flight != null):
+		var dirty = flight.get_color() != Color(1,1,1)
+		if (!dirty):
+			var r = float(randi() % 75 + 25) / 100
+			var g = float(randi() % 75 + 25) / 100
+			var b = float(randi() % 75 + 25) / 100
+			var color = Color(r, g, b, 0.75)
+			flight.set_color(color)
+
 	check_connection(airport)
 	
 func failed_flight(flight, reward):
