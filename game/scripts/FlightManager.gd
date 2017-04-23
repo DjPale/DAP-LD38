@@ -141,8 +141,10 @@ func get_selected_flight():
 
 	return null
 	
+func find_plane(flight):
+	return get_tree().get_root().find_node("Plane-" + flight.flight, true, false)
+	
 func get_plane(flight):
-	prints("get_plane", flight.flight)
 	var plane = get_tree().get_root().find_node("Plane-" + flight.flight, true, false)
 	
 	if plane == null:
@@ -214,6 +216,13 @@ func failed_flight(flight, reward):
 	
 	active_flights -= 1
 	SFX_Manager.play("plane-crashed")
+	
+	var plane = find_plane(flight)
+	if plane != null:
+		plane.lost_flight()
+	else:
+		print("termintated flight without plane!")
+	
 	flight.die()
 	
 func complete_flight(dest_airport, flight):

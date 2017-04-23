@@ -71,6 +71,9 @@ func completed_flight():
 	die()
 	
 func lost_flight():
+	if dest != null:
+		dest.free_slot()
+		
 	dest = null
 	die()
 	
