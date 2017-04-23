@@ -10,6 +10,7 @@ export var end_pos = Vector2(1024 - 20, 256)
 export var max_time_scale = 2.0
 export var spacing = 50.0
 export var flight_speed = 20.0
+export var min_max_allowed_time = Vector2(2.0, 30.0)
 export var allowed_overshoot = 50.0
 export var flight_spawn_interval = Vector2(5, 10)
 export var airport_spawn_to_flight_ratio = 10
@@ -87,18 +88,35 @@ func do_spawn():
 	if active_flights >= max_flights:
 		return
 	
+	var retries = 10
+	var dist = 0
+	var initial_time = 0
+	
+	var str_from = "NONO!"
+	var str_to = "NONO!"
+	
+	while retries > 0 and (initial_time < min_max_allowed_time.x or initial_time > min_max_allowed_time.y):
+		str_from = get_rand_airport()
+		str_to = get_rand_airport(str_from)	
+		var ap_from = get_airport(str_from)
+		var ap_to = get_airport(str_to)
+		dist = (ap_to.get_global_pos() - ap_from.get_global_pos()).length()
+		initial_time = floor(dist * distance_to_time)
+		#prints("Trying to spawn", str_from, str_to, dist, initial_time)
+		retries -= 1
+		
+	if retries == 0:
+		print("Failed to spawn flight due to min / max distance")
+		return
+	
 	var flight = TheFlight.instance()
 	flight.mgr = self
 	flight.flight = get_rand_flight()
 	flight.set_name("Flight-" + flight.flight)
-	flight.from = get_rand_airport()
-	flight.to = get_rand_airport(flight.from)
+	flight.from = str_from
+	flight.to = str_to
 	
-	var ap_from = get_airport(flight.from)
-	var ap_to = get_airport(flight.to)
-	
-	var dist = (ap_to.get_global_pos() - ap_from.get_global_pos()).length()
-	flight.initial_time = floor(dist * distance_to_time)
+	flight.initial_time = initial_time
 	flight.reward = floor(dist * distance_to_money)
 	
 	active_flights += 1
@@ -177,7 +195,7 @@ func check_connection(airport):
 	if flight == null:
 		return
 		
-	if airport.get_name() == flight.flight:
+	if airport.get_name() == flight.from:
 		return
 	
 	if airport.get_slot():
@@ -228,7 +246,7 @@ func failed_flight(flight, reward):
 	if plane != null:
 		plane.lost_flight()
 	else:
-		print("termintated flight without plane!")
+		print("termintated flight without plane (usually OK)!")
 	
 	flight.die()
 	
