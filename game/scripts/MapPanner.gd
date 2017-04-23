@@ -7,8 +7,7 @@ export(float) var pan_scale_factor = 1.25
 
 onready var map_frame = get_node("MapFrame")
 
-var is_panning = false
-var orig_pos = Vector2()
+var status = "released"
 var offset = Vector2()
 var mpos = Vector2()
 
@@ -19,21 +18,26 @@ func _ready():
 	set_process(true)
 	set_process_input(true)
 
-func _input(ev):	
-	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == BUTTON_LEFT:
-		var ev_pos = ev.global_pos
+func _input(ev):
+	if ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == BUTTON_LEFT and ev.is_pressed() and status != "dragging":
 		var s_pos = get_global_pos()
 
-		if ev.pressed and not is_panning:
-			if rect.has_point(ev_pos):
-				is_panning = true
-				orig_pos = ev_pos
-				offset = s_pos - ev_pos
+		if rect.has_point(ev.global_pos):
+			#print("clicked")
+			status = "clicked"
+			offset = s_pos - ev.global_pos
 
-		if not ev.pressed and is_panning:
-			is_panning = false
+	if status == "clicked" and ev.type == InputEvent.MOUSE_MOTION:
+		status = "dragging"
+		#print("dragging")
 			
-	if ev.type == InputEvent.MOUSE_MOTION: mpos = ev.global_pos
+	if (status == "dragging" || status == "clicked") and ev.type == InputEvent.MOUSE_BUTTON and ev.button_index == BUTTON_LEFT:
+		if not ev.is_pressed():
+			status = "released"
+			#prints("released")
+			
+	mpos = get_global_mouse_pos()
+
 	
 func clamp_pos():
 	var g = get_global_pos()
@@ -50,6 +54,7 @@ func clamp_pos():
 	set_global_pos(g)
 
 func _process(delta):
-	if is_panning:
+	if status == "dragging":
 		set_global_pos(mpos + offset)
 		clamp_pos()
+
