@@ -210,9 +210,6 @@ func check_connection(airport):
 			
 		plane.set_destination(flight, airport)
 		
-		sel_flight = null
-		
-	
 func timeline_click(flight, pressed, offset):
 	if pressed: return
 	prints("flight clicked", flight.flight, pressed, offset)
@@ -234,7 +231,7 @@ func timeline_click(flight, pressed, offset):
 	
 func airport_click(airport, pressed, offset):
 	if pressed: return
-	prints("airport clicked", airport.get_name(), pressed, offset)
+	prints("airport clicked", airport.get_name(), pressed, offset, sel_flight)
 	SFX_Manager.play("select")
 	check_connection(airport)
 	
