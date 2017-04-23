@@ -1,7 +1,6 @@
 # TODOs in order of importance-ish
 - EB | when flight is landing, disable, fade and add icon describing the shit
-- C2 | Revise colors on UI
-	- C2 | UI Trekanter som viser at man kan pan'e world map
+- C2 | UI Trekanter som viser at man kan pan'e world map
 - EB | Floating Text VFX (money + new airport + hurricane warning)
 - EB | Game Over
 - EB | Add Menu
@@ -11,4 +10,3 @@
 - C2 | Negative sound on negative reward on complete flight
 - C2 | New airport sfx and visual
 - C2 | New flights sfx and visual
-- C2 | Tutorial Bitmap to be shown before playing
