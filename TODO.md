@@ -1,7 +1,5 @@
 # TODOs in order of importance-ish
-- EB | when flight is landing, disable, fade and add icon describing the shit
 - C2 | UI Trekanter som viser at man kan pan'e world map
-- EB | Floating Text VFX (money + new airport + hurricane warning)
 - EB | Game Over
 - EB | Add Menu
 - EB | Add music
