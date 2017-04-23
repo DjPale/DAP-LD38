@@ -19,8 +19,8 @@ transform/pos = Vector2( -1067, -132 )
 z/relative = false
 script/script = ExtResource( 2 )
 rect = Rect2( 16, 16, 610, 568 )
-upper = Vector2( -1840, -750 )
-lower = Vector2( -150, 50 )
+upper = Vector2( -1840, -720 )
+lower = Vector2( -150, 0 )
 pan_speed = 600.0
 
 [node name="MapFrame" type="TextureFrame" parent="Map"]
