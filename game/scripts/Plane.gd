@@ -98,7 +98,14 @@ func completed_flight():
 	mgr.complete_flight(get_current_destination(), get_flight())
 	die()
 	
-func lost_flight(flight):
+func report_failed_flight():
+	var f = get_flight()
+	if f != null:
+		f.fail_flight()
+	else:
+		print("cannot report failed flight")
+	
+func lost_flight():
 	if is_landing:
 		var dest = get_final_destination()
 		if dest != null:

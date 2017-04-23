@@ -321,9 +321,10 @@ func failed_flight(flight, reward):
 	
 	var plane = find_plane(flight)
 	if plane != null:
-		plane.lost_flight(flight)
+		plane.lost_flight()
 	else:
-		print("termintated flight without plane (usually OK)!")
+		#print("termintated flight without plane (usually OK)!")
+		pass
 	
 	flight.die()
 	

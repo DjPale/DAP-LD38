@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scripts/GameControl.gd" type="Script" id=1]
 [ext_resource path="res://scripts/MapPanner.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://gfx/timer-yellow.png" type="Texture" id=6]
 [ext_resource path="res://gfx/timer-red.png" type="Texture" id=7]
 [ext_resource path="res://scripts/FlightManager.gd" type="Script" id=8]
+[ext_resource path="res://scripts/WeatherManager.gd" type="Script" id=9]
 
 [node name="Test-Level" type="Node"]
 
@@ -53,8 +54,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Weather" type="Node2D" parent="Map"]
+
 [node name="GUI-Background" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/scale = Vector2( 2, 2 )
 z/z = 10
 z/relative = false
@@ -90,9 +94,13 @@ __meta__ = {
 
 [node name="FlightManager" type="Node2D" parent="."]
 
+editor/display_folded = true
 z/z = 20
 z/relative = false
 script/script = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
 time_scale = 0.75
 start_pos = Vector2( 700, 80 )
 end_pos = Vector2( 1004, 580 )
@@ -227,6 +235,15 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="UI" type="Node" parent="."]
+[node name="WeatherManager" type="Node2D" parent="."]
+
+script/script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+random_spawntime = Vector2( 60, 120 )
+random_lifetime = Vector2( 60, 100 )
+random_scale = Vector2( 0.75, 2 )
+random_speed = Vector2( 4, 10 )
 
 
