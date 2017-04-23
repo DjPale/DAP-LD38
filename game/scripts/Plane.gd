@@ -84,7 +84,7 @@ func is_final_destination():
 	return (via_list.size() == 1)
 
 func add_destination(flight, airport):
-	if airport == null or flight == null: return
+	if airport == null or flight == null or is_landing: return
 	
 	via_list.append(airport)
 	
@@ -98,8 +98,14 @@ func completed_flight():
 	mgr.complete_flight(get_current_destination(), get_flight())
 	die()
 	
-func lost_flight():
+func lost_flight(flight):
+	if is_landing:
+		var dest = get_final_destination()
+		if dest != null:
+			dest.free_slot()
+			
 	via_list.clear()
+		
 	die()
 	
 func die():

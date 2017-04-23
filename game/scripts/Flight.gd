@@ -59,14 +59,15 @@ func get_reward(dest):
 	
 	# wrong airport
 	if dest != to:
-		return -reward
+		return floor(reward * mgr.reward_wrong)
 	
 	# on time
 	if time_counter <= initial_time:
+		print("positive reward ", reward)
 		return reward
 	else:
 		# overtime
-		return round(reward * 0.5)
+		return floor(reward * mgr.reward_delayed)
 	
 func _setup_labels():
 	get_node("Timeline/Flight").set_text(flight)
@@ -78,7 +79,7 @@ func _on_TimelineSprite_clicked(pressed, global_pos, offset):
 	mgr.timeline_click(self, pressed, offset)
 	
 func fail_flight():
-	mgr.failed_flight(self, -reward)
+	mgr.failed_flight(self, floor(reward * mgr.reward_failed))
 	die()
 	
 func die():

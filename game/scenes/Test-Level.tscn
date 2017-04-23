@@ -15,7 +15,7 @@ script/script = ExtResource( 1 )
 
 [node name="Map" type="Node2D" parent="."]
 
-transform/pos = Vector2( -1068, -57 )
+transform/pos = Vector2( -1067, -132 )
 z/relative = false
 script/script = ExtResource( 2 )
 rect = Rect2( 16, 16, 610, 568 )
@@ -93,7 +93,7 @@ __meta__ = {
 z/z = 20
 z/relative = false
 script/script = ExtResource( 8 )
-time_scale = 0.5
+time_scale = 0.75
 start_pos = Vector2( 700, 80 )
 end_pos = Vector2( 1004, 580 )
 max_time_scale = 2.0
@@ -105,14 +105,17 @@ flight_spawn_interval = Vector2( 1, 3 )
 progression_strategy = 0
 airport_spawn_to_flight_ratio = 8
 flight_max_slot_to_flight_ratio = 16
-airport_spawn_to_money_ratio = 2000
-flight_max_slot_to_money_ratio = 1000
+airport_spawn_to_money_ratio = 300
+flight_max_slot_to_money_ratio = 500
 airport_start_number = 4
-max_flights = 5
-max_flight_slots = 14
+max_flights = 3
+max_flight_slots = 7
 money = 300
 distance_to_money = 0.5
 distance_to_time = 0.05
+reward_delayed = 0.5
+reward_failed = -2.0
+reward_wrong = -0.5
 
 [node name="Flights" type="Node2D" parent="FlightManager"]
 

@@ -24,6 +24,9 @@ export var max_flight_slots = 10
 export var money = 0
 export var distance_to_money = 0.5
 export var distance_to_time = 0.25
+export var reward_delayed = 0.5
+export var reward_failed = -2.0
+export var reward_wrong = -1.0
 
 var takeoffs = 0
 var landings = 0
@@ -59,8 +62,8 @@ var init_visible
 func _ready():
 	add_airports()
 	set_next_spawn()
-	next_airport_m = airport_spawn_to_money_ratio
-	next_flight_slot_m = flight_max_slot_to_money_ratio
+	next_airport_m = airport_spawn_to_money_ratio + money
+	next_flight_slot_m = flight_max_slot_to_money_ratio + money
 	var tmp = money
 	money = 0
 	add_money(tmp)
@@ -318,7 +321,7 @@ func failed_flight(flight, reward):
 	
 	var plane = find_plane(flight)
 	if plane != null:
-		plane.lost_flight()
+		plane.lost_flight(flight)
 	else:
 		print("termintated flight without plane (usually OK)!")
 	
@@ -367,29 +370,29 @@ func add_airports():
 	init_visible = airport_start_number
 
 	add_airport("Oslo Airport, Gardermoen", "OSL", 1, 246, 62)
-	add_airport("Frankfurt Airport", "FRA", 2, 247, 85)
-	add_airport("Istanbul Atatürk Airport", "IST", 2, 272, 99)
-	add_airport("Heathrow Airport", "LHR", 2, 232, 78)
-	add_airport("Dubai International Airport", "DXB", 3, 309, 129)
-	add_airport("Tokyo International Airport", "HND", 2, 429, 110)
-	add_airport("Charles de Gaulle Airport", "CDG", 2, 238, 85)
+	add_airport("Frankfurt Airport", "FRA", 1, 247, 85)
+	add_airport("Istanbul Atatürk Airport", "IST", 1, 272, 99)
+	add_airport("Heathrow Airport", "LHR", 1, 232, 78)
+	add_airport("Dubai International Airport", "DXB", 1, 309, 129)
+	add_airport("Tokyo International Airport", "HND", 1, 429, 110)
+	add_airport("Charles de Gaulle Airport", "CDG", 1, 238, 85)
 	add_airport("Copenhagen Airport", "CPH", 1, 249, 70)
 	add_airport("Amsterdam Airport Schiphol", "AMS", 2, 241, 77)
-	add_airport("Beijin Capital International Airport", "PEK", 3, 399, 103)
+	add_airport("Beijin Capital International Airport", "PEK", 2, 399, 103)
 	add_airport("Los Angeles International Airport", "LAX", 3, 69, 111)
-	add_airport("Singapore Changi Airport", "SIN", 2, 377, 169)
-	add_airport("Seoul Incheon International Airport", "ICN", 2, 410, 106)
+	add_airport("Singapore Changi Airport", "SIN", 1, 377, 169)
+	add_airport("Seoul Incheon International Airport", "ICN", 1, 410, 106)
 	add_airport("Suvarnabhumi Airport", "BKK", 1, 374, 147)
 	add_airport("Indira Gandhi International Airport", "DEL", 2, 343, 133)
 	add_airport("Madrid Barajas Airport", "MAD", 1, 228, 100)
 	add_airport("Toronto Pearson International Airport", "YYZ", 1, 120, 96)
-	add_airport("Sydney Kingsford-Smith Airport", "SYD", 2, 443, 226)
+	add_airport("Sydney Kingsford-Smith Airport", "SYD", 1, 443, 226)
 	add_airport("Leonardo da Vinci–Fiumicino Airport", "FCO", 1, 254, 99)
-	add_airport("Benito Juárez International Airport", "MEX", 2, 95, 137)
-	add_airport("John F. Kennedy International Airport", "JFK", 2, 128, 100)
+	add_airport("Benito Juárez International Airport", "MEX", 1, 95, 137)
+	add_airport("John F. Kennedy International Airport", "JFK", 1, 128, 100)
 	add_airport("Campo de Marte Airport", "MAE", 1, 169, 209)
-	add_airport("Sheremetyevo International Airport", "SVO", 2, 289, 69)
-	add_airport("Avalon Airport", "AVV", 2, 426, 227)
-	add_airport("El Dorado International Airport", "BOG", 2, 132, 163)
+	add_airport("Sheremetyevo International Airport", "SVO", 1, 289, 69)
+	add_airport("Avalon Airport", "AVV", 1, 426, 227)
+	add_airport("El Dorado International Airport", "BOG", 1, 132, 163)
 	add_airport("Stockholm Arlanda Airport", "ARN", 1, 257, 59)
-	add_airport("O. R. Tambo International Airport", "JNB", 2, 272, 221)
+	add_airport("O. R. Tambo International Airport", "JNB", 1, 272, 221)
