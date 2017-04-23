@@ -6,11 +6,14 @@ export var random_spawntime = Vector2(60, 120)
 export var random_lifetime = Vector2(20, 60)
 export var random_scale = Vector2(0.75, 2.0)
 export var random_speed = Vector2(4, 10)
+export var random_dist_from_ap = Vector2(300, 600)
+
+export var next_spawn = 2.0
 
 onready var airports = get_tree().get_root().find_node("Airports", true, false)
 onready var weather = get_tree().get_root().find_node("Weather", true, false)
+onready var flightmgr = get_tree().get_root().find_node("FlightManager", true, false)
 
-var next_spawn = 2.0
 
 func _ready():
 	set_process(true)
@@ -30,11 +33,11 @@ func do_spawn():
 	
 	h.set_scaled_size(rand_range(random_scale.x, random_scale.y))
 	
-	var apidx = rand_range(0, airports.get_child_count())
-	var ap = airports.get_child(apidx)
+	var str_ap = flightmgr.get_rand_airport()
+	var ap = flightmgr.get_airport(str_ap)
 	
 	var dir = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized()
-	var hpos = ap.get_global_pos() + (dir * rand_range(200, 400))
+	var hpos = ap.get_global_pos() + (dir * rand_range(random_dist_from_ap.x, random_dist_from_ap.y))
 	h.set_global_pos(hpos)
 	h.direction = -dir
 	
