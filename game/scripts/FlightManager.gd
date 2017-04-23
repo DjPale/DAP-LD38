@@ -25,6 +25,9 @@ export var money = 0
 export var distance_to_money = 0.5
 export var distance_to_time = 0.25
 
+var takeoffs = 0
+var landings = 0
+var crashes = 0
 
 var sel_flight = null
 
@@ -43,6 +46,9 @@ onready var flights = get_tree().get_root().find_node("Flights", true, false)
 onready var planes = get_tree().get_root().find_node("Planes", true, false)
 onready var label = get_node("FlightInfo")
 onready var score_label = get_node("Score")
+onready var takeoffs_label = get_node("Takeoffs")
+onready var landings_label = get_node("Landings")
+onready var crashes_label = get_node("Crashes")
 onready var SFX_Manager = get_node("/root/SFX_Manager")
 
 onready var debug_label = get_node("DEBUG")
@@ -155,6 +161,9 @@ func do_spawn():
 	
 	flights.add_child(flight)
 	
+	takeoffs += 1
+	update_score()
+	
 	if progression_strategy == 1:
 		next_airport += 1
 		if next_airport > airport_spawn_to_flight_ratio:
@@ -185,6 +194,9 @@ func add_flight_slot():
 	
 func update_score():
 	score_label.set_text(str(money))
+	takeoffs_label.set_text(str(takeoffs))
+	landings_label.set_text(str(landings))
+	crashes_label.set_text(str(crashes))
 	
 func get_rand_airport(exclude = null):
 	var cnt = 0
@@ -200,7 +212,7 @@ func get_rand_airport(exclude = null):
 	cnt = -1
 	for c in airports.get_children():
 		if not c.is_hidden() and c.get_name() != exclude:
-			cnt += 1		
+			cnt += 1
 		
 		if cnt == r:
 			return c.get_name()
@@ -298,6 +310,7 @@ func failed_flight(flight, reward):
 	
 	add_money(r)
 	
+	crashes += 1
 	update_score()
 	
 	active_flights -= 1
@@ -328,8 +341,12 @@ func complete_flight(dest_airport, flight):
 
 	add_money(r)
 	
-	SFX_Manager.play("complete_flight")
-	
+	if (r > 0):
+		landings += 1
+		SFX_Manager.play("complete_flight")
+	else:
+		crashes += 1
+		
 	update_score()
 	
 	active_flights -= 1
@@ -346,7 +363,7 @@ func add_airport(name, iata_code, capacity, x_coord, y_coord):
 	init_visible -= 1	
 	airports.add_child(ap)
 
-func add_airports():	
+func add_airports():
 	init_visible = airport_start_number
 
 	add_airport("Oslo Airport, Gardermoen", "OSL", 1, 246, 62)

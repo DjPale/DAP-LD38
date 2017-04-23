@@ -162,18 +162,67 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 271.0
-margin/top = 10.0
-margin/right = 311.0
-margin/bottom = 24.0
+margin/left = 160.0
+margin/top = 12.0
+margin/right = 200.0
+margin/bottom = 26.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "nnnn"
+align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-__meta__ = {
-"_edit_lock_": true
-}
+
+[node name="Takeoffs" type="Label" parent="FlightManager"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 256.0
+margin/top = 12.0
+margin/right = 296.0
+margin/bottom = 26.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "nnnn"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Landings" type="Label" parent="FlightManager"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 352.0
+margin/top = 12.0
+margin/right = 392.0
+margin/bottom = 26.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "nnnn"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Crashes" type="Label" parent="FlightManager"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 448.0
+margin/top = 12.0
+margin/right = 488.0
+margin/bottom = 26.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "nnnn"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="UI" type="Node" parent="."]
 
