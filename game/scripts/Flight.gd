@@ -42,28 +42,33 @@ func _do_timers(delta):
 func _calc_pos():
 	var y_pos = mgr.start_pos.y + (list_pos * mgr.spacing)
 	var d_x = mgr.end_pos.x - mgr.start_pos.x
-	var max_time = get_absolute_max() * mgr.time_scale
+	var max_time = get_absolute_max()
 	
-	var tl_scale = d_x / max_time
+	var tl_scale = (d_x / max_time)
 	var time_pct = time_counter / max_time
 	var x_pos = tl_scale * time_counter
 	
 	timeline.set_global_pos(Vector2(mgr.start_pos.x + x_pos, y_pos))
 	
 func get_absolute_max():
-	return (initial_time + initial_time * mgr.allowed_overshoot)
+	var it = initial_time * (1.0 / mgr.time_scale)
+	return (it + it * mgr.allowed_overshoot)
 	
 func get_reward(dest):
+	var ret = 0
+	
 	# wrong airport
 	if dest != to:
-		return -reward
+		ret = -reward
 	
 	# on time
 	if time_counter <= initial_time:
-		return reward
+		ret = reward
 	else:
 		# overtime
-		return reward * 0.5
+		ret = reward * 0.5
+		
+	return round(reward)
 	
 func _setup_labels():
 	get_node("Timeline/Flight").set_text(flight)

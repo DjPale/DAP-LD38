@@ -57,4 +57,18 @@ func _process(delta):
 	if status == "dragging":
 		set_global_pos(mpos + offset)
 		clamp_pos()
+	else:
+		var p = Vector2()
+		if Input.is_action_pressed("ui_left"):
+			p.x = 1
+		elif Input.is_action_pressed("ui_right"):
+			p.x = -1
+		if Input.is_action_pressed("ui_up"):
+			p.y = 1
+		elif Input.is_action_pressed("ui_down"):
+			p.y = -1
+			
+		if p.length() != 0:
+			set_global_pos(get_global_pos() + p.normalized() * 10.0)
+			clamp_pos()
 
