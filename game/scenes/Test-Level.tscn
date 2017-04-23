@@ -21,7 +21,7 @@ script/script = ExtResource( 2 )
 rect = Rect2( 16, 16, 610, 568 )
 upper = Vector2( -1840, -750 )
 lower = Vector2( -150, 50 )
-pan_scale_factor = 1.25
+pan_speed = 600.0
 
 [node name="MapFrame" type="TextureFrame" parent="Map"]
 

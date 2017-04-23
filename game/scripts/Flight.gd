@@ -59,16 +59,14 @@ func get_reward(dest):
 	
 	# wrong airport
 	if dest != to:
-		ret = -reward
+		return -reward
 	
 	# on time
 	if time_counter <= initial_time:
-		ret = reward
+		return reward
 	else:
 		# overtime
-		ret = reward * 0.5
-		
-	return round(reward)
+		return round(reward * 0.5)
 	
 func _setup_labels():
 	get_node("Timeline/Flight").set_text(flight)

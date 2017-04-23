@@ -3,7 +3,7 @@ extends Node2D
 export(Rect2) var rect = Rect2()
 export(Vector2) var upper = Vector2()
 export(Vector2) var lower = Vector2()
-export(float) var pan_scale_factor = 1.25
+export(float) var pan_speed = 400.0
 
 onready var map_frame = get_node("MapFrame")
 
@@ -69,6 +69,6 @@ func _process(delta):
 			p.y = -1
 			
 		if p.length() != 0:
-			set_global_pos(get_global_pos() + p.normalized() * 10.0)
+			set_global_pos(get_global_pos() + p.normalized() * pan_speed * delta)
 			clamp_pos()
 
