@@ -48,7 +48,7 @@ __meta__ = {
 
 [node name="Lines" type="Node2D" parent="."]
 
-transform/pos = Vector2( -4, 20 )
+transform/pos = Vector2( 0, 10 )
 z/relative = false
 script/script = ExtResource( 3 )
 

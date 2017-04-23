@@ -47,6 +47,14 @@ func _calc_pos():
 	var tl_scale = (d_x / max_time)
 	var time_pct = time_counter / max_time
 	var x_pos = tl_scale * time_counter
+
+	if time_pct < 0.05:
+		timeline.set_opacity(time_pct / 0.05)
+
+			
+	if time_pct > 0.9:
+		timeline.set_opacity((1 - time_pct) / 0.10)
+		
 	
 	timeline.set_global_pos(Vector2(mgr.start_pos.x + x_pos, y_pos))
 	

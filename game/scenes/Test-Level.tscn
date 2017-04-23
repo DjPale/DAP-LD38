@@ -56,6 +56,8 @@ __meta__ = {
 
 [node name="Weather" type="Node2D" parent="Map"]
 
+z/z = 1
+
 [node name="GUI-Background" type="Sprite" parent="."]
 
 editor/display_folded = true
@@ -245,5 +247,7 @@ random_spawntime = Vector2( 60, 120 )
 random_lifetime = Vector2( 60, 100 )
 random_scale = Vector2( 0.75, 2 )
 random_speed = Vector2( 4, 10 )
+random_dist_from_ap = Vector2( 300, 600 )
+next_spawn = 60.0
 
 
