@@ -198,6 +198,13 @@ func check_connection(airport):
 func timeline_click(flight, pressed, offset):
 	if pressed: return
 	prints("flight clicked", flight.flight, pressed, offset)
+	
+	var r = float(randi() % 75 + 25) / 100
+	var g = float(randi() % 75 + 25) / 100
+	var b = float(randi() % 75 + 25) / 100
+	var color = Color(r, g, b, 1)
+	flight.set_color(color)
+	
 	sel_flight = weakref(flight)
 	
 func airport_click(airport, pressed, offset):
