@@ -262,7 +262,7 @@ func check_connection(airport):
 		print("Could not find plane or from airport")
 		return
 		
-	plane.set_destination(flight, airport)
+	plane.add_destination(flight, airport)
 		
 func timeline_click(flight, pressed, offset):
 	if pressed: return
