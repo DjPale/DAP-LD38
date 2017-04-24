@@ -41,4 +41,4 @@ func do_spawn():
 	h.set_global_pos(hpos)
 	h.direction = -dir
 	
-	
+	VFX_Manager.floating_text("Warning! A hurricane is moving towards " + str_ap)

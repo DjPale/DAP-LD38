@@ -93,8 +93,12 @@ func _sync_info():
 func set_next_spawn():
 	next_spawn = rand_range(flight_spawn_interval.x, flight_spawn_interval.y)
 	
-func add_money(m):
+func add_money(m, pos = null):
 	money += m
+	
+	if pos != null:
+		VFX_Manager.score_text(m, pos)
+	
 	if progression_strategy == 0:
 		if money >= next_airport_m:
 			open_airport()
@@ -187,11 +191,13 @@ func open_airport():
 			break
 			
 	if airport != null:
+		VFX_Manager.floating_text("The airport " + airport.get_name() + " just opened!")
 		prints("Open airport " + airport.get_name())
 		airport.set_hidden(false)
 
 func add_flight_slot():
 	if max_flights < max_flight_slots:
+		VFX_Manager.floating_text("You have been granted a new flight slot!")
 		prints("New flight slot")
 		max_flights += 1
 	
@@ -310,8 +316,20 @@ func airport_click(airport, pressed, offset):
 func failed_flight(flight, reward):
 	var r = reward
 	prints("reward for timeout ", flight.flight, r)
-	
-	add_money(r)
+
+	var score_pos = flight.get_node("Timeline").get_global_pos() + Vector2(-40, 0)
+
+	var plane = find_plane(flight)
+	if plane != null:
+		score_pos = plane.get_global_pos()
+		VFX_Manager.explosion(score_pos)
+		plane.lost_flight()
+	else:
+		#print("termintated flight without plane (usually OK)!")
+		pass
+
+			
+	add_money(r, score_pos)
 	
 	crashes += 1
 	update_score()
@@ -319,12 +337,6 @@ func failed_flight(flight, reward):
 	active_flights -= 1
 	SFX_Manager.play("plane-crashed")
 	
-	var plane = find_plane(flight)
-	if plane != null:
-		plane.lost_flight()
-	else:
-		#print("termintated flight without plane (usually OK)!")
-		pass
 	
 	flight.die()
 	
@@ -339,11 +351,12 @@ func complete_flight(dest_airport, flight):
 		ap.free_slot()
 	else:
 		print("complete_flight with no ap ", flight.to)
+		return
 
 	var r = flight.get_reward(ap.get_name())
 	prints("reward for", flight.flight, r)
 
-	add_money(r)
+	add_money(r, ap.get_global_pos())
 	
 	if (r > 0):
 		landings += 1
@@ -376,18 +389,18 @@ func add_airports():
 	add_airport("Heathrow Airport", "LHR", 1, 232, 78)
 	add_airport("Dubai International Airport", "DXB", 1, 309, 129)
 	add_airport("Tokyo International Airport", "HND", 1, 429, 110)
-	add_airport("Charles de Gaulle Airport", "CDG", 1, 238, 85)
-	add_airport("Copenhagen Airport", "CPH", 1, 249, 70)
-	add_airport("Amsterdam Airport Schiphol", "AMS", 2, 241, 77)
 	add_airport("Beijin Capital International Airport", "PEK", 2, 399, 103)
+	add_airport("Seoul Incheon International Airport", "ICN", 1, 410, 106)
+	add_airport("Charles de Gaulle Airport", "CDG", 1, 238, 85)
+	add_airport("Amsterdam Airport Schiphol", "AMS", 2, 241, 77)
+	add_airport("Sydney Kingsford-Smith Airport", "SYD", 1, 443, 226)
 	add_airport("Los Angeles International Airport", "LAX", 3, 69, 111)
 	add_airport("Singapore Changi Airport", "SIN", 1, 377, 169)
-	add_airport("Seoul Incheon International Airport", "ICN", 1, 410, 106)
 	add_airport("Suvarnabhumi Airport", "BKK", 1, 374, 147)
+	add_airport("Copenhagen Airport", "CPH", 1, 249, 70)
 	add_airport("Indira Gandhi International Airport", "DEL", 2, 343, 133)
 	add_airport("Madrid Barajas Airport", "MAD", 1, 228, 100)
 	add_airport("Toronto Pearson International Airport", "YYZ", 1, 120, 96)
-	add_airport("Sydney Kingsford-Smith Airport", "SYD", 1, 443, 226)
 	add_airport("Leonardo da Vinci–Fiumicino Airport", "FCO", 1, 254, 99)
 	add_airport("Benito Juárez International Airport", "MEX", 1, 95, 137)
 	add_airport("John F. Kennedy International Airport", "JFK", 1, 128, 100)
