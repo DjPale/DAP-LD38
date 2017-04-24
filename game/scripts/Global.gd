@@ -22,6 +22,10 @@ func reset_level():
 	spawn_data.clear()
 	get_tree().reload_current_scene()
 	
+func load_scene(name):
+	clear_level_data()
+	get_tree().change_scene("res://scenes/" + name + ".tscn")
+	
 func restart_level():
 	clear_level_data()
 	reset_level()
@@ -31,7 +35,7 @@ func next_level():
 	if level >= level_list.size(): level = 0
 	
 	clear_level_data()
-	get_tree().change_scene("res://Levels/" + level_list[level] + ".tscn")
+	get_tree().change_scene("res://scenes/" + level_list[level] + ".tscn")
 	
 func clear_level_data():
 	spawn_point = Vector2()
