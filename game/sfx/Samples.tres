@@ -1,12 +1,13 @@
-[gd_resource type="SampleLibrary" load_steps=8 format=1]
+[gd_resource type="SampleLibrary" load_steps=9 format=1]
 
 [ext_resource path="res://sfx/Jump6.smp" type="Sample" id=1]
 [ext_resource path="res://sfx/airport-opened.smp" type="Sample" id=2]
 [ext_resource path="res://sfx/complete_flight.smp" type="Sample" id=3]
 [ext_resource path="res://sfx/fail.smp" type="Sample" id=4]
-[ext_resource path="res://sfx/plane-crashed.smp" type="Sample" id=5]
-[ext_resource path="res://sfx/select.smp" type="Sample" id=6]
-[ext_resource path="res://sfx/success.smp" type="Sample" id=7]
+[ext_resource path="res://sfx/hurricane-spawn.smp" type="Sample" id=5]
+[ext_resource path="res://sfx/plane-crashed.smp" type="Sample" id=6]
+[ext_resource path="res://sfx/select.smp" type="Sample" id=7]
+[ext_resource path="res://sfx/success.smp" type="Sample" id=8]
 
 [resource]
 
@@ -34,22 +35,28 @@ samples/fail = {
 "priority": 0,
 "sample": ExtResource( 4 )
 }
-samples/plane-crashed = {
+samples/hurricane-spawn = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 5 )
 }
-samples/select = {
+samples/plane-crashed = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 6 )
 }
-samples/success = {
+samples/select = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 7 )
+}
+samples/success = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 8 )
 }
 

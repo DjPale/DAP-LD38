@@ -40,5 +40,4 @@ func _on_Hurricane_body_enter( body ):
 func die():
 	is_dead = true
 	lifecounter = 4
-	get_node("Particles2D").set_emitting(false)
-	
+	get_node("Particles2D").set_emitting(false)	
