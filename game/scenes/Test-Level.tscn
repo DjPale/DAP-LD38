@@ -141,6 +141,7 @@ distance_to_time = 0.05
 reward_delayed = 0.5
 reward_failed = -2.0
 reward_wrong = -0.5
+game_over_score = 0
 
 [node name="Flights" type="Node2D" parent="FlightManager"]
 

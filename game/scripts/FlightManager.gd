@@ -27,6 +27,7 @@ export var distance_to_time = 0.25
 export var reward_delayed = 0.5
 export var reward_failed = -2.0
 export var reward_wrong = -1.0
+export var game_over_score = 0
 
 var takeoffs = 0
 var landings = 0
@@ -107,6 +108,9 @@ func add_money(m, pos = null):
 		if money >= next_flight_slot_m:
 			add_flight_slot()
 			next_flight_slot_m += flight_max_slot_to_money_ratio
+			
+	if money < game_over_score:
+		Global.game_over()
 		
 func find_slot():
 	var prev_idx = 0

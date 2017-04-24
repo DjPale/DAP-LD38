@@ -4,6 +4,8 @@ var score = 0
 var level = 0
 var spawn_point = Vector2()
 
+var GameOver = preload("res://entities/GameOver.tscn")
+
 var level_list = [
 	"Test-Level"
 ]
@@ -18,8 +20,14 @@ func _ready():
 	for l in range(0, level_list.size()):
 		if level_name == level_list[l]: level = l
 
+func game_over():
+	var go = GameOver.instance()
+	get_node("/root/Test-Level").add_child(go)
+	get_tree().set_pause(true)
+
 func reset_level():
 	spawn_data.clear()
+	get_tree().set_pause(false)
 	get_tree().reload_current_scene()
 	
 func load_scene(name):
