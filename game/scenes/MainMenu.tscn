@@ -57,6 +57,6 @@ params/stretch_mode = 0
 
 [connection signal="pressed" from="NewGame" to="." method="_on_NewGame_pressed"]
 
-[connection signal="released" from="Quit" to="." method="_on_Quit_released"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
 
 

@@ -30,6 +30,9 @@ func restart_level():
 	clear_level_data()
 	reset_level()
 	
+func quit_game():
+	get_tree().quit()
+	
 func next_level():
 	level += 1
 	if level >= level_list.size(): level = 0

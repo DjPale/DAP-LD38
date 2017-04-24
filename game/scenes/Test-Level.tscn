@@ -131,7 +131,7 @@ progression_strategy = 0
 airport_spawn_to_flight_ratio = 8
 flight_max_slot_to_flight_ratio = 16
 airport_spawn_to_money_ratio = 300
-flight_max_slot_to_money_ratio = 500
+flight_max_slot_to_money_ratio = 700
 airport_start_number = 4
 max_flights = 3
 max_flight_slots = 7
@@ -159,7 +159,6 @@ margin/top = 561.0
 margin/right = 80.0
 margin/bottom = 575.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "DEBUG"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -263,6 +262,6 @@ random_lifetime = Vector2( 60, 100 )
 random_scale = Vector2( 0.75, 2 )
 random_speed = Vector2( 4, 10 )
 random_dist_from_ap = Vector2( 300, 600 )
-next_spawn = 2.0
+next_spawn = 60.0
 
 
