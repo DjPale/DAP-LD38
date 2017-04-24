@@ -29,5 +29,26 @@ func _input(event):
 		if key == KEY_X:
 			VFX_Manager.explosion(Vector2(100, 100))
 			
+	if event.type == InputEvent.MOUSE_BUTTON:
+		var pan_tooltip = get_node("GUI-Background/PanTooltip")
+		var mouse_position = get_viewport().get_mouse_pos()
+		var arrow_positions = [
+			Vector2(625, 302),
+			Vector2(320, 582),
+			Vector2(17, 302)
+		]
+		
+		if is_near(mouse_position, arrow_positions):
+			pan_tooltip.show()
+		else:
+			pan_tooltip.hide()
+
+func is_near(position, points):
+	var radius = 20
+	for i in points:
+		if abs(position.x - i.x) < radius && abs(position.y - i.y) < radius:
+			return true
+	return false
+
 func reset_level():
 	get_tree().reload_current_scene()
