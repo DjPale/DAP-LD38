@@ -192,6 +192,7 @@ func open_airport():
 			
 	if airport != null:
 		VFX_Manager.floating_text("The airport " + airport.get_name() + " just opened!")
+		SFX_Manager.play("airport-opened")
 		prints("Open airport " + airport.get_name())
 		airport.set_hidden(false)
 
@@ -360,9 +361,12 @@ func complete_flight(dest_airport, flight):
 	
 	if (r > 0):
 		landings += 1
-		SFX_Manager.play("complete_flight")
+		SFX_Manager.play("success")
+		print("play success sfx")
 	else:
 		crashes += 1
+		SFX_Manager.play("fail")
+		print("play fail sfx")
 		
 	update_score()
 	
