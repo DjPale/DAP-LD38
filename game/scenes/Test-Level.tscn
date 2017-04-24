@@ -68,6 +68,24 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="PanTooltip" type="Label" parent="GUI-Background"]
+
+visibility/visible = false
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 79.0
+margin/top = 147.0
+margin/right = 411.0
+margin/bottom = 161.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Click and drag anywhere on worldmap to pan around"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="TimerGreen" type="Sprite" parent="GUI-Background"]
 
 transform/pos = Vector2( 328, 14 )
@@ -113,7 +131,7 @@ progression_strategy = 0
 airport_spawn_to_flight_ratio = 8
 flight_max_slot_to_flight_ratio = 16
 airport_spawn_to_money_ratio = 300
-flight_max_slot_to_money_ratio = 700
+flight_max_slot_to_money_ratio = 500
 airport_start_number = 4
 max_flights = 3
 max_flight_slots = 7
@@ -245,6 +263,6 @@ random_lifetime = Vector2( 60, 100 )
 random_scale = Vector2( 0.75, 2 )
 random_speed = Vector2( 4, 10 )
 random_dist_from_ap = Vector2( 300, 600 )
-next_spawn = 60.0
+next_spawn = 2.0
 
 
